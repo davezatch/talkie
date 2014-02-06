@@ -1,0 +1,36 @@
+<section id="talker">
+
+    <p class="text-danger unsupported hidden">
+        Ack! looks like this browser isn't supported :( Unfortunately, you will currently have to try with either Safari or Chrome until Mozilla adds further speechSynthesis support to Firefox.
+    </p>
+
+    <p>
+        Text to Speech! HTML5 is just the best. Enter some text in the box and hit <span class="text-success"><strong>play</strong></span> to listen to it.
+    </p>
+
+    <textarea class="form-control" rows="3" name="talkerText">Try me! Just press "Play"</textarea>
+
+    <div class="button-wrapper">
+        <button class="btn btn-large btn-success play">
+            <span class="glyphicon glyphicon-play"></span> Play!
+        </button>
+        <button class="btn btn-large btn-danger cancel" disabled>
+            <span class="glyphicon glyphicon-stop"></span> Stop the madness!
+        </button>
+    </div>
+
+        <p class="text-info">
+            Click on any of the voices to try them:
+        </p>
+
+        <ul id="voice-list">
+            <% for(var i=0; i < voices.length; i++) { %>
+                <li class="voice-li" data-voice="<%= voices[i].name %>"><%= voices[i].name %></li>
+            <% } %>
+        </ul>
+
+    <p class="bg-warning">
+        Note: sometimes it seems to stop working, and only resumes working if you restart the browser. Not sure why yet.
+    </p>
+
+</section>

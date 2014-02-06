@@ -8,11 +8,13 @@ window.talkie = {
     Routers: {},
     init: function () {
         'use strict';
-        console.log('Hello from Backbone!');
+
+        new talkie.Views.TalkerView();
     }
 };
 
 $(document).ready(function () {
     'use strict';
     talkie.init();
+
 });
