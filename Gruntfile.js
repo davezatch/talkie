@@ -29,6 +29,13 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
         yeoman: yeomanConfig,
+        'bower-install': {
+            target: {
+                src: ['<%= yeoman.app %>/index.html'],
+                // html: '<%= yeoman.app %>/index.html',
+                ignorePath: '<%= yeoman.app %>/'
+            }
+        },
         watch: {
             options: {
                 nospawn: true,
