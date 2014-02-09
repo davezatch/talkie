@@ -17,10 +17,36 @@
         <button class="btn btn-large btn-danger cancel" disabled>
             <span class="glyphicon glyphicon-stop"></span> Stop the madness!
         </button>
+        <div class="throbber hidden">
+            Loading...
+        </div>
     </div>
 
         <p class="text-info">
-            Click on any of the voices to try them:
+            You can change some voice options (some only apply to certain voices)
+        </p>
+        <ul class="range-list">
+            <li>
+                <label for="pitch">Pitch: <span class="range-value pitch-value"><%= pitch %></span></label>
+                <input type="range" name="pitch" id="pitch" min="0" max="2" step="0.1" value="<%= pitch %>">
+            </li>
+            
+            <li>
+                <label for="rate">Rate: <span class="range-value rate-value"><%= rate %></span></label>
+                <input type="range" name="rate" id="rate" min="0.1" max="10" step="0.1" value="<%= rate %>">
+            </li>
+            <li>
+                <label for="volume">Volume: <span class="range-value volume-value"><%= volume %></span></label>
+                <input type="range" name="volume" id="volume" min="0" max="1" step="0.1" value="<%= volume %>">
+            </li>
+        </ul>
+
+
+
+
+        <br>
+        <p class="text-info">
+            These are the voices supported by your browser and OS. Click on any of them to try:
         </p>
 
         <ul id="voice-list">

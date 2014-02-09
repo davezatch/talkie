@@ -40,6 +40,10 @@ module.exports = function (grunt) {
                 files: ['test/spec/{,*/}*.coffee'],
                 tasks: ['coffee:test']
             },
+            less: {
+                files: ['<%= yeoman.app %>/styles/{,*/}*.less'],
+                tasks: ['less']
+            },
             livereload: {
                 options: {
                     livereload: LIVERELOAD_PORT
@@ -158,6 +162,19 @@ module.exports = function (grunt) {
                 }]
             }
         },
+        less: {
+          dist: {
+            files: {
+              '<%= yeoman.app %>/styles/main.css': ['<%= yeoman.app %>/styles/main.less']
+            },
+            options: {
+              sourceMap: true,
+              sourceMapFilename: '<%= yeoman.app %>/styles/main.css.map',
+              sourceMapBasepath: '<%= yeoman.app %>/',
+              sourceMapRootpath: '/'
+            }
+          }
+        },
         // not enabled since usemin task does concat and uglify
         // check index.html to edit your build targets
         // enable this task if you prefer defining your build targets here
@@ -273,6 +290,7 @@ module.exports = function (grunt) {
             return grunt.task.run([
                 'clean:server',
                 'coffee',
+                'less',
                 'createDefaultTemplate',
                 'jst',
                 'connect:test',
@@ -284,6 +302,7 @@ module.exports = function (grunt) {
         grunt.task.run([
             'clean:server',
             'coffee:dist',
+            'less',
             'createDefaultTemplate',
             'jst',
             'connect:livereload',
@@ -297,6 +316,7 @@ module.exports = function (grunt) {
         var testTasks = [
                 'clean:server',
                 'coffee',
+                'less',
                 'createDefaultTemplate',
                 'jst',
                 'connect:test',
@@ -316,6 +336,7 @@ module.exports = function (grunt) {
     grunt.registerTask('build', [
         'clean:dist',
         'coffee',
+        'less',
         'createDefaultTemplate',
         'jst',
         'useminPrepare',

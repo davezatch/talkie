@@ -9,7 +9,11 @@ window.talkie = {
     init: function () {
         'use strict';
 
-        new talkie.Views.TalkerView();
+        var talkerModel = new talkie.Models.TalkerModel()
+
+        new talkie.Views.TalkerView({
+            model: talkerModel
+        });
     }
 };
 
