@@ -255,12 +255,18 @@ module.exports = function (grunt) {
                         '*.{ico,txt}',
                         '.htaccess',
                         'images/{,*/}*.{webp,gif}',
-                        'styles/fonts/{,*/}*.*',
-                        'styles/*.*'
+                        'styles/fonts/{,*/}*.*'
+                        // 'bower_components/bootstrap/fonts/*.*'
                     ]
                 }]
             }
         },
+        // "exportsOverride": {
+        //   "bootstrap": {
+        //     "js": "dist/js/bootstrap.js",
+        //     "css": "dist/css/bootstrap.css",
+        //     "css/fonts": "fonts/*.*"
+        // },
         jst: {
             compile: {
                 files: {
@@ -276,6 +282,7 @@ module.exports = function (grunt) {
                         '<%= yeoman.dist %>/styles/{,*/}*.css',
                         '<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp}',
                         '/styles/fonts/{,*/}*.*'
+                        // 'bower_components/bootstrap/fonts/*.*'
                     ]
                 }
             }
