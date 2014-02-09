@@ -7,9 +7,9 @@ window.talkie = {
     Views: {},
     Routers: {},
     init: function () {
-        'use strict';
+        "use strict";
 
-        var talkerModel = new talkie.Models.TalkerModel()
+        var talkerModel = new talkie.Models.TalkerModel();
 
         new talkie.Views.TalkerView({
             model: talkerModel
@@ -18,7 +18,7 @@ window.talkie = {
 };
 
 $(document).ready(function () {
-    'use strict';
+    "use strict";
     talkie.init();
 
 });

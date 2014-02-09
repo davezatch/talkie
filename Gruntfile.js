@@ -1,3 +1,5 @@
+/* jshint quotmark: single */
+
 'use strict';
 var LIVERELOAD_PORT = 35729;
 var SERVER_PORT = 9000;
@@ -163,17 +165,17 @@ module.exports = function (grunt) {
             }
         },
         less: {
-          dist: {
-            files: {
-              '<%= yeoman.app %>/styles/main.css': ['<%= yeoman.app %>/styles/main.less']
-            },
-            options: {
-              sourceMap: true,
-              sourceMapFilename: '<%= yeoman.app %>/styles/main.css.map',
-              sourceMapBasepath: '<%= yeoman.app %>/',
-              sourceMapRootpath: '/'
+            dist: {
+                files: {
+                    '<%= yeoman.app %>/styles/main.css': ['<%= yeoman.app %>/styles/main.less']
+                },
+                options: {
+                    sourceMap: true,
+                    sourceMapFilename: '<%= yeoman.app %>/styles/main.css.map',
+                    sourceMapBasepath: '<%= yeoman.app %>/',
+                    sourceMapRootpath: '/'
+                }
             }
-          }
         },
         // not enabled since usemin task does concat and uglify
         // check index.html to edit your build targets
@@ -272,24 +274,24 @@ module.exports = function (grunt) {
         },
         buildcontrol: {
             options: {
-              dir: 'dist',
-              commit: true,
-              push: true,
-              message: 'Built %sourceName% from commit %sourceCommit% on branch %sourceBranch%'
+                dir: 'dist',
+                commit: true,
+                push: true,
+                message: 'Built %sourceName% from commit %sourceCommit% on branch %sourceBranch%'
             },
             pages: {
-              options: {
-                remote: 'git@github.com:davezatch/talkie.git',
-                branch: 'gh-pages'
-              }
+                options: {
+                    remote: 'git@github.com:davezatch/talkie.git',
+                    branch: 'gh-pages'
+                }
             },
             local: {
-              options: {
-                remote: '../',
-                branch: 'build'
-              }
+                options: {
+                    remote: '../',
+                    branch: 'build'
+                }
             }
-          }
+        }
     });
 
     grunt.registerTask('createDefaultTemplate', function () {

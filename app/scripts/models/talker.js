@@ -3,11 +3,11 @@
 talkie.Models = talkie.Models || {};
 
 (function () {
-    'use strict';
+    "use strict";
 
     talkie.Models.TalkerModel = Backbone.Model.extend({
 
-        url: '',
+        url: "",
 
         initialize: function() {
         },
@@ -21,10 +21,7 @@ talkie.Models = talkie.Models || {};
             supported: true
         },
 
-        validate: function(attrs, options) {
-        },
-
-        parse: function(response, options)  {
+        parse: function(response)  {
             return response;
         }
     });

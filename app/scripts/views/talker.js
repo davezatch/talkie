@@ -1,15 +1,15 @@
-/*global talkie, Backbone, JST*/
+/*global talkie, Backbone, JST, speechSynthesis, SpeechSynthesisUtterance*/
 
 talkie.Views = talkie.Views || {};
 
 (function () {
-    'use strict';
+    "use strict";
 
     talkie.Views.TalkerView = Backbone.View.extend({
 
         el: $("#main"),
 
-        template: JST['app/scripts/templates/talker.ejs'],
+        template: JST["app/scripts/templates/talker.ejs"],
 
         events: {
             "click .voice-li": "setActiveVoice",
@@ -82,27 +82,27 @@ talkie.Views = talkie.Views || {};
             this.beginAnimation();
 
             msg.voice = speechSynthesis.getVoices().filter(function(voice) {
-                return voice.name == self.model.get("chosenVoice");
+                return voice.name === self.model.get("chosenVoice");
             })[0];
 
-            msg.voiceURI = 'native';
+            msg.voiceURI = "native";
             msg.volume = this.model.get("volume"); // 0 to 1
             msg.rate = this.model.get("rate"); // 0.1 to 10
             msg.pitch = this.model.get("pitch"); //0 to 2
             msg.text = this.$("textarea").val();
-            msg.lang = 'en-US';
+            msg.lang = "en-US";
 
             this.$(".play").attr("disabled", true);
             this.$(".cancel").removeAttr("disabled");
 
-            msg.onend = function(event) {
+            msg.onend = function() {
                 self.endAnimation();
             };
 
             msg.onerror = function(event) {
                 console.log("speechSynthesis error :(");
                 console.log(event);
-            }
+            };
 
             speechSynthesis.speak(msg);
         },
