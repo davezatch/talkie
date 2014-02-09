@@ -13,6 +13,12 @@ talkie.Models = talkie.Models || {};
         },
 
         defaults: {
+            pitch: 2,
+            rate: 1,
+            volume: 1,
+            voices: [],
+            chosenVoice: "Fred",
+            supported: true
         },
 
         validate: function(attrs, options) {

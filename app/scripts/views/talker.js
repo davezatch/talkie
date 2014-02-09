@@ -14,31 +14,36 @@ talkie.Views = talkie.Views || {};
         events: {
             "click .voice-li": "setActiveVoice",
             "click .play": "handleText",
-            "click .cancel": "cancelSpeech"
+            "click .cancel": "cancelSpeech",
+            "change input[type='range']": "updateRangeSlider"
         },
 
         initialize: function() {
             var self = this,
                 featureCheckCount = 0;
 
-            this.voices = [];
+            // this.pitch = 2;
+            // this.rate = 1;
+            // this.volume = 1;
 
-            this.chosenVoice = "Google US English";
+            // this.voices = [];
 
-            this.supported = true;
+            // this.chosenVoice = "Fred";
 
+            // this.supported = true;
+
+            // since it takes a while (not sure why?) to get the supported voices list, we attempt for a couple seconds to grab it.  If successful, we render the page, otherwise if we hit the time limit, we show our sad 'unsupported' message
             var getVoices = setInterval(function() {
-                if (self.voices.length === 0) {
+                if (self.model.get("voices").length === 0) {
                     featureCheckCount++;
-                    console.log(featureCheckCount);
-                    self.voices = window.speechSynthesis.getVoices();
+                    self.model.set("voices", window.speechSynthesis.getVoices());
                 } else {
                     clearInterval(getVoices);
                     self.render();
                 }
 
                 if (++featureCheckCount === 20) {
-                    self.supported = false;
+                    self.model.set("supported", false);
                     clearInterval(getVoices);
                     self.render();
                 }
@@ -49,11 +54,9 @@ talkie.Views = talkie.Views || {};
         render: function() {
             var self = this;
 
-            this.$el.html(this.template({
-                voices: this.voices
-            }));
+            this.$el.html(this.template(this.model.toJSON()));
 
-            if (!this.supported) {
+            if (!this.model.get("supported")) {
                 this.$(".btn").attr("disabled", true);
                 this.$(".unsupported").removeClass("hidden");
             }
@@ -62,8 +65,7 @@ talkie.Views = talkie.Views || {};
 
             setInterval(function() {
                 if (!speechSynthesis.speaking && self.supported) {
-                    self.$(".play").removeAttr("disabled");
-                    self.$(".cancel").attr("disabled", true);
+                    self.endAnimation();
                 }
             }, 500);
         },
@@ -77,14 +79,16 @@ talkie.Views = talkie.Views || {};
                 return;
             }
 
+            this.beginAnimation();
+
             msg.voice = speechSynthesis.getVoices().filter(function(voice) {
-                return voice.name == self.chosenVoice;
+                return voice.name == self.model.get("chosenVoice");
             })[0];
 
             msg.voiceURI = 'native';
-            msg.volume = 1; // 0 to 1
-            msg.rate = 1; // 0.1 to 10
-            msg.pitch = 2; //0 to 2
+            msg.volume = this.model.get("volume"); // 0 to 1
+            msg.rate = this.model.get("rate"); // 0.1 to 10
+            msg.pitch = this.model.get("pitch"); //0 to 2
             msg.text = this.$("textarea").val();
             msg.lang = 'en-US';
 
@@ -92,8 +96,7 @@ talkie.Views = talkie.Views || {};
             this.$(".cancel").removeAttr("disabled");
 
             msg.onend = function(event) {
-                self.$(".play").removeAttr("disabled");
-                self.$(".cancel").attr("disabled", true);
+                self.endAnimation();
             };
 
             msg.onerror = function(event) {
@@ -121,9 +124,9 @@ talkie.Views = talkie.Views || {};
 
             var selectedVoice = this.$(event.target).data("voice");
 
-            this.chosenVoice = selectedVoice
+            this.model.set("chosenVoice", selectedVoice);
 
-            this.setHighlightedVoice(this.chosenVoice);
+            this.setHighlightedVoice(this.model.get("chosenVoice"));
 
         },
 
@@ -139,6 +142,15 @@ talkie.Views = talkie.Views || {};
 
             this.$(".play").removeAttr("disabled");
             this.$(".cancel").attr("disabled", true);
+        },
+
+        updateRangeSlider: function(event) {
+            var $rangeInput = $(event.target),
+                valueType = $rangeInput[0].id;
+
+            this.model.set(valueType, parseFloat($rangeInput.val(), 10));
+
+            this.$("." + valueType + "-value").text(this.model.get(valueType));
         }
 
     });
