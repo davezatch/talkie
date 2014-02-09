@@ -125,6 +125,20 @@ talkie.Views = talkie.Views || {};
 
             this.setHighlightedVoice(this.chosenVoice);
 
+        },
+
+        beginAnimation: function() {
+            this.$(".throbber").removeClass("hidden");
+
+            this.$(".play").attr("disabled", true);
+            this.$(".cancel").removeAttr("disabled");
+        },
+
+        endAnimation: function() {
+            this.$(".throbber").addClass("hidden");
+
+            this.$(".play").removeAttr("disabled");
+            this.$(".cancel").attr("disabled", true);
         }
 
     });
