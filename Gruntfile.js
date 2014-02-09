@@ -246,7 +246,8 @@ module.exports = function (grunt) {
         },
         copy: {
             dist: {
-                files: [{
+                files: [
+                {
                     expand: true,
                     dot: true,
                     cwd: '<%= yeoman.app %>',
@@ -256,9 +257,19 @@ module.exports = function (grunt) {
                         '.htaccess',
                         'images/{,*/}*.{webp,gif}',
                         'styles/fonts/{,*/}*.*'
-                        // 'bower_components/bootstrap/fonts/*.*'
                     ]
-                }]
+                },
+                {
+                    expand: true,
+                    dot: true,
+                    flatten: true,
+                    cwd: '<%= yeoman.app %>',
+                    dest: '<%= yeoman.dist %>/fonts',
+                    src: [
+                        'bower_components/bootstrap/fonts/*.*'
+                    ]
+                },
+                ]
             }
         },
         // "exportsOverride": {
@@ -281,7 +292,7 @@ module.exports = function (grunt) {
                         '<%= yeoman.dist %>/scripts/{,*/}*.js',
                         '<%= yeoman.dist %>/styles/{,*/}*.css',
                         '<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp}',
-                        '/styles/fonts/{,*/}*.*'
+                        '<%= yeoman.dist %>/fonts/{,*/}*.*'
                         // 'bower_components/bootstrap/fonts/*.*'
                     ]
                 }
