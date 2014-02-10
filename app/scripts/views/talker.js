@@ -22,16 +22,6 @@ talkie.Views = talkie.Views || {};
             var self = this,
                 featureCheckCount = 0;
 
-            // this.pitch = 2;
-            // this.rate = 1;
-            // this.volume = 1;
-
-            // this.voices = [];
-
-            // this.chosenVoice = "Fred";
-
-            // this.supported = true;
-
             // since it takes a while (not sure why?) to get the supported voices list, we attempt for a couple seconds to grab it.  If successful, we render the page, otherwise if we hit the time limit, we show our sad 'unsupported' message
             var getVoices = setInterval(function() {
                 if (self.model.get("voices").length === 0) {
@@ -61,7 +51,7 @@ talkie.Views = talkie.Views || {};
                 this.$(".unsupported").removeClass("hidden");
             }
 
-            this.setHighlightedVoice(this.chosenVoice);
+            this.setHighlightedVoice(this.model.get("chosenVoice"));
 
             setInterval(function() {
                 if (!speechSynthesis.speaking && self.supported) {
