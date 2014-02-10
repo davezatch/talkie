@@ -32,7 +32,7 @@ talkie.Views = talkie.Views || {};
                     self.render();
                 }
 
-                if (++featureCheckCount === 20) {
+                if (++featureCheckCount === 30) {
                     self.model.set("supported", false);
                     clearInterval(getVoices);
                     self.render();
